@@ -28,35 +28,35 @@ let gameover = false;
 choiceButton.forEach(button => button.addEventListener("click", () => {
     player.choice = button.value;
     opponentTurn();
-    confirmButton.forEach(button => button.classList.remove("hidden"));
+    updateButtonDisplay("confirm");
 }));
 
 confirmButton.forEach(button => button.addEventListener("click", () => {
-    button.value == "double" ? player.double = true : player.double = false;
+    player.double = Number(button.value);
+    // button.value == "double" ? player.double = true : player.double = false;
     check();
 }));
 
 nextButton.addEventListener("click", () => {
     nextTurn();
     nextButton.classList.add("hidden");
-    choiceButton.forEach(button => button.classList.remove("hidden"));
+    updateButtonDisplay("next");
 })
 
 function check() {
+    switch(player.choice) {
+        case "rock":
+            (opponent.choice == "scissors") ? result = "win" : result = "lose";
+            break;
+        case "paper":
+            (opponent.choice == "rock") ? result = "win" : result = "lose";
+            break;
+        case "scissors":
+            (opponent.choice == "paper") ? result = "win" : result = "lose";
+            break;
+    }
     if (player.choice == opponent.choice) {
         result = "draw"
-    } else {
-        switch(player.choice) {
-            case "rock":
-                (opponent.choice == "scissors") ? result = "win" : result = "lose";
-                break;
-            case "paper":
-                (opponent.choice == "rock") ? result = "win" : result = "lose";
-                break;
-            case "scissors":
-                (opponent.choice == "paper") ? result = "win" : result = "lose";
-                break;
-        }
     }
     updateScore();
 }
@@ -73,19 +73,19 @@ function updateScore() {
     
     switch(result) {
         case "win":
-            opponent.hp -= amount;
-            if (opponent.hp <= 0) {gameover = true};
-            updateDisplay();
+            opponent.hp = Math.max(opponent.hp - amount, 0);
             break;
         case "lose":
-            player.hp -= amount;
-            if (player.hp <= 0) {gameover = true};
-            updateDisplay();
-            break;
-        case "draw":
-            updateDisplay();
+            player.hp = Math.max(player.hp - amount, 0);
             break;
     }
+    if (player.hp == 0 || opponent.hp == 0) {
+        gameover = true
+    };
+
+    updateChoice();
+    updateHP();
+    updateResult(amount);
 }
 
 function opponentTurn() {
@@ -95,38 +95,82 @@ function opponentTurn() {
     opponent.double = (doubleChance == 3 ? true : false);
 }
 
-function updateDisplay() {
-    opponentChoice.textContent = `${opponent.choice} ${(opponent.double) ? "DOUBLE" : ""}`;
-    playerChoice.textContent = `${player.choice} ${(player.double) ? "DOUBLE" : ""}`;
-    opponentHp.textContent = opponent.hp;
+function updateHP() {
     playerHP.textContent = player.hp;
+    opponentHp.textContent = opponent.hp;
+}
+
+function updateChoice() {
+    const emoji = new Map([
+        ["rock", "✊"], 
+        ["paper", "🖐"], 
+        ["scissors", "✌️"]]);
+
+    playerChoice.innerHTML = 
+        `<h1 class="emoji">${emoji.get(player.choice)}</h1>
+        <h3>${(player.double) ? "DOUBLE" : ""}</h3>`;
+
+    opponentChoice.innerHTML = 
+        `<h1 class="emoji">${emoji.get(opponent.choice)}</h1>
+        <h3>${(opponent.double) ? "DOUBLE" : ""}</h3>`;
+    
+    if (player.choice == "" || opponentChoice == "") {
+        playerChoice.innerHTML = "";
+        opponentChoice.innerHTML = "";
+    }
+    updateButtonDisplay("update");
+}
+
+function updateButtonDisplay(status) {
+    switch(status) {
+        case "confirm":
+            confirmButton.forEach(button => button.classList.remove("hidden"));
+            break;
+        case "next":
+            choiceButton.forEach(button => button.classList.remove("hidden"));
+            break;
+        case "update":
+            choiceButton.forEach(button => button.classList.add("hidden"));
+            confirmButton.forEach(button => button.classList.add("hidden"));
+            nextButton.classList.remove("hidden");
+            break;
+    }
+}
+
+function updateResult(amount) {
     switch(result) {
         case "win": 
             console.log(gameover);
-            resultDiv.textContent = `You Win! ${gameover ? "GAMEOVER" : ""}`;
+            resultDiv.innerHTML = `<h3>Opponent -${amount}</h3>`;
             break;
         case "lose": 
             console.log(gameover);
-            resultDiv.textContent = `You Lose ${gameover ? "GAMEOVER" : ""}`;
+            resultDiv.innerHTML = `<h3>Player -${amount}</h3>`;
             break;
         case "draw": 
-            resultDiv.textContent = "Draw";
+            resultDiv.innerHTML = `<h3>Draw</h3>`;
             break;
     }
-    choiceButton.forEach(button => button.classList.add("hidden"));
-    confirmButton.forEach(button => button.classList.add("hidden"));
-    nextButton.classList.remove("hidden");
+    if (gameover) {
+        resultDiv.innerHTML += `<h3>${result == "win" ? "You Won!" : "You Lost"}</h3>`;
+        resultDiv.innerHTML += `<h3>GAMEOVER</h3>`;
+    }
 }
 
 function nextTurn() {
     resultDiv.textContent = "";
-    opponentChoice.textContent = "";
-    playerChoice.textContent = "";
     result = "";
     player.choice = "";
     opponent.choice = "";
+    updateChoice();
     if (gameover) {
         player.hp = 100;
         opponent.hp = 100;
+        updateHP();
+        gameover = false;
     }
 }
+
+(function footer() {
+    document.querySelector("#footer").innerHTML = "© 2023 David Cai";
+})();

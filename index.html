@@ -8,34 +8,46 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="gameDiv">
-        <div id="hp">
-            <div></div>
+    <header>
+        <h1>Rock. Paper. Scissor. Double.</h1>
+    </header>
+    <div id="gameDiv" class="flex-column main-container">
+        <div class="flex-row">
+            <div id="player" class="players flex-item">
+                <h1>Player</h1>
+                <h3>HP:</h3>
+                <h1 class="hp" id="playerHP">100</h1>
+            </div>
+            <div class="flex-item">
+                <h1 class="center-text" id="playerChoice"></h1>
+            </div>
+            <div class="flex-item">
+                <h1 class="center-text" id="opponentChoice"></h1>
+            </div>
+            <div id="opponent" class="players flex-item">
+                <h1>Computer</h1>
+                <h3>HP:</h3>
+                <h1 class="hp" id="opponentHP">100</h1>
+            </div>
         </div>
-        <div id="opponent">
-            <h1>Opponent</h1>
-            <h1 class="hp" id="opponentHP">100</h1>
-            <h1 class="choice" id="opponentChoice"></h1>
+        <div id="result" class="center-text"></div>
+        <div class="button-container flex-column center-text">
+            <div id="choices" class="flex-spaced">
+                <button class="choiceButton" value="rock">Rock</button>
+                <button class="choiceButton" value="paper">Paper</button>
+                <button class="choiceButton" value="scissors">Scissors</button>
+            </div>
+            <div id="confirmDiv" class="flex-spaced">
+                <button class="confirmButton hidden" value=0>Confirm</button>
+                <button class="confirmButton hidden" value=1>Double</button>
+            </div>
+            <div class="flex-row">
+                <button id="nextButton" class="hidden">Continue</button>
+            </div>
         </div>
-        <div id="player">
-            <h1>Player</h1>
-            <h1 class="hp" id="playerHP">100</h1>
-            <h1 class="choice" id="playerChoice"></h1>
-        </div>
-        <h1 id="result"></h1>
-        <div id="choices">
-            <button class="choiceButton" value="rock">Rock</button>
-            <button class="choiceButton" value="paper">Paper</button>
-            <button class="choiceButton" value="scissors">Scissors</button>
-        </div>
-        <div id="confirmDiv">
-            <button class="confirmButton hidden" value="confirm">Confirm</button>
-            <button class="confirmButton hidden" value="double">Double</button>
-        </div>
-        <div>
-            <button id="nextButton" class="hidden">Continue</button>
-        </div>
+
     </div>
+    <footer id="footer"></footer>
     <script src="app.js"></script>
 </body>
 </html>
