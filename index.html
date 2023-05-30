@@ -18,11 +18,11 @@
                 <h3>HP:</h3>
                 <h1 class="hp" id="playerHP">100</h1>
             </div>
-            <div class="flex-item">
-                <h1 class="center-text" id="playerChoice"></h1>
+            <div class="flex-item center-text choice flex-row" id="playerChoice">
+                <!--Player choice-->
             </div>
-            <div class="flex-item">
-                <h1 class="center-text" id="opponentChoice"></h1>
+            <div class="flex-item center-text choice flex-row" id="opponentChoice">
+                <!--Opponent choice-->
             </div>
             <div id="opponent" class="players flex-item">
                 <h1>Computer</h1>
@@ -30,22 +30,25 @@
                 <h1 class="hp" id="opponentHP">100</h1>
             </div>
         </div>
-        <div id="result" class="center-text"></div>
+        <div id="result" class="center-text standard-box">
+            <!--Results-->
+        </div>
         <div class="button-container flex-column center-text">
-            <div id="choices" class="flex-spaced">
-                <button class="choiceButton" value="rock">Rock</button>
-                <button class="choiceButton" value="paper">Paper</button>
-                <button class="choiceButton" value="scissors">Scissors</button>
+            <div id="choiceButtons" class="flex-row standard-box">
+                <button class="choice-button" value="rock">✊</button>
+                <div class="separator"></div>
+                <button class="choice-button" value="paper">🖐</button>
+                <div class="separator"></div>
+                <button class="choice-button" value="scissors">✌️</button>
             </div>
-            <div id="confirmDiv" class="flex-spaced">
-                <button class="confirmButton hidden" value=0>Confirm</button>
-                <button class="confirmButton hidden" value=1>Double</button>
+            <div id="confirmDiv" class="flex-spaced standard-box">
+                <button class="confirm-button standard-button hidden" value=0><h2>Confirm</h2></button>
+                <button class="confirm-button standard-button hidden" value=1><h2>Double</h2></button>
             </div>
-            <div class="flex-row">
-                <button id="nextButton" class="hidden">Continue</button>
+            <div class="flex-row standard-box">
+                <button id="nextButton" class="standard-button hidden"><h2>Continue</h2></button>
             </div>
         </div>
-
     </div>
     <footer id="footer"></footer>
     <script src="app.js"></script>

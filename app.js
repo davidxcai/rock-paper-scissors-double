@@ -6,9 +6,10 @@ const
     playerHP = document.querySelector("#playerHP"),
     playerChoice = document.querySelector("#playerChoice"),
     resultDiv = document.querySelector("#result"),
+    choiceButtons = document.querySelector("#choiceButtons"),
     // Buttons
-    choiceButton = document.querySelectorAll(".choiceButton"),
-    confirmButton = document.querySelectorAll(".confirmButton"),
+    choiceButton = document.querySelectorAll(".choice-button"),
+    confirmButton = document.querySelectorAll(".confirm-button"),
     nextButton = document.querySelector("#nextButton");
 
 const player = {
@@ -107,12 +108,16 @@ function updateChoice() {
         ["scissors", "✌️"]]);
 
     playerChoice.innerHTML = 
-        `<h1 class="emoji">${emoji.get(player.choice)}</h1>
-        <h3>${(player.double) ? "DOUBLE" : ""}</h3>`;
+        `<div>
+        <h1 class="emoji">${emoji.get(player.choice)}</h1>
+        <h2>${(player.double) ? "DOUBLE" : ""}</h2>
+        </div>`;
 
     opponentChoice.innerHTML = 
-        `<h1 class="emoji">${emoji.get(opponent.choice)}</h1>
-        <h3>${(opponent.double) ? "DOUBLE" : ""}</h3>`;
+        `<div>
+        <h1 class="emoji">${emoji.get(opponent.choice)}</h1>
+        <h2>${(opponent.double) ? "DOUBLE" : ""}</h2>
+        </div>`;
     
     if (player.choice == "" || opponentChoice == "") {
         playerChoice.innerHTML = "";
@@ -126,11 +131,13 @@ function updateButtonDisplay(status) {
         case "confirm":
             confirmButton.forEach(button => button.classList.remove("hidden"));
             break;
-        case "next":
-            choiceButton.forEach(button => button.classList.remove("hidden"));
+        case "next":  
+            choiceButtons.classList.remove("hidden");
+            //choiceButton.forEach(button => button.classList.remove("hidden"));
             break;
-        case "update":
-            choiceButton.forEach(button => button.classList.add("hidden"));
+        case "update": 
+            choiceButtons.classList.add("hidden");
+            //choiceButton.forEach(button => button.classList.add("hidden"));
             confirmButton.forEach(button => button.classList.add("hidden"));
             nextButton.classList.remove("hidden");
             break;
@@ -141,14 +148,14 @@ function updateResult(amount) {
     switch(result) {
         case "win": 
             console.log(gameover);
-            resultDiv.innerHTML = `<h3>Opponent -${amount}</h3>`;
+            resultDiv.innerHTML = `<h1 class="green-text">Opponent -${amount}</h1>`;
             break;
         case "lose": 
             console.log(gameover);
-            resultDiv.innerHTML = `<h3>Player -${amount}</h3>`;
+            resultDiv.innerHTML = `<h1 class="red-text">Player -${amount}</h1>`;
             break;
         case "draw": 
-            resultDiv.innerHTML = `<h3>Draw</h3>`;
+            resultDiv.innerHTML = `<h1>Draw</h1>`;
             break;
     }
     if (gameover) {

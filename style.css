@@ -13,6 +13,7 @@ header {
 }
 
 .main-container {
+    padding-top: 2%;
     padding-left: 10%;
     padding-right: 10%;
 }
@@ -34,6 +35,11 @@ header {
 
 .flex-item {
     flex-basis: 20%;
+    height: auto;
+}
+
+.choice {
+    align-items: center;
 }
 
 #opponent {
@@ -44,16 +50,60 @@ header {
     text-align: center;
 }
 
+.standard-box {
+    height: 60px;
+    margin-bottom: 15px;
+}
+
 .emoji {
     height: auto;
 }
 
-button {
-    background-color: rgb(69, 255, 177);
+.separator {
+    width: 3px;
+    border-radius: 1px;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: auto;
+    background-color: rgb(255, 199, 95);
+}
+
+.choice-button {
+    width: 10%;
+    background-color: transparent;
+    border: 2px;
+    border-color: transparent;
+    font-size: xx-large;
+}
+
+.choice-button:hover {
+    cursor: pointer;
+    border-color: rgb(255, 252, 245);
+}
+
+.choice-button:focus {
+    border-color: rgb(255, 199, 95);
+}
+
+.standard-button {
+    background-color: rgb(255, 199, 95);
     border: 0;
-    width: 100px;
-    height: 30px;
-    margin-bottom: 50px;
+    border-radius: 30px;
+    width: 200px;
+    height: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.standard-button:hover {
+    cursor: pointer;
+}
+
+.green-text {
+    color: rgb(16, 255, 123);
+}
+
+.red-text {
+    color: rgb(255, 59, 59);
 }
 
 .hidden {
